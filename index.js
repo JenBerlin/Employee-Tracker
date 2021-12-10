@@ -1,31 +1,47 @@
 const inquirer = require("inquirer");
-const mySQL = require("mysql")
-
-const managerQuestions = [
-  {
-    type: "input",
-    message: "Name of the manager?",
-    name: "name",
-  },
-  {
-    type: "input",
-    message: "Employees ID?",
-    name: "id",
-  },
-  {
-    type: "input",
-    message: "Email addres?",
-    name: "email",
-  },
-  {
-    type: "input",
-    message: "Office number?",
-    name: "officeNumber",
-  },
-];
+const db = require("./database/connection.js");
+require("console.table");
 
 async function start() {
-  let answers = await inquirer.prompt(managerQuestions);
+  mainQuestions();
+}
+
+function mainQuestions() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "Choices",
+        message: "Please choose one of the options:",
+        choices: [
+          "View all departments",
+          "View all roles",
+          "View all employees",
+          "Add a department",
+          "Add a role",
+          "Add an employee",
+          "Update an employee role",
+          "Exit",
+        ],
+      },
+    ])
+    .then((res) => {
+      let choice = res.Choices;
+      switch (choice) {
+        case "View all departments":
+          viewDepartments();
+          break;
+      }
+    });
+}
+
+function viewDepartments() {
+  let query = "SELECT * FROM department";
+  db.query(query, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    mainQuestions();
+  });
 }
 
 start();
