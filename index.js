@@ -11,7 +11,7 @@ async function mainQuestions() {
     {
       type: "list",
       name: "Choices",
-      message: "Please choose one of the options:",
+      message: "Please choose one of the options or add:",
       choices: [
         "View all departments",
         "View all roles",
@@ -40,6 +40,9 @@ async function mainQuestions() {
       break;
     case "Add a role":
       addRole();
+      break;
+    case "Add a employee":
+      addEmployee();
       break;
   }
 }
@@ -100,7 +103,7 @@ function addRole() {
       .prompt([
         {
           type: "input",
-          name: "name",
+          name: "title",
           message: "Please enter the new role:",
         },
 
@@ -123,7 +126,46 @@ function addRole() {
         // WHERE condition;
         const query = `INSERT INTO role
         (title, salary, department_id)
-        SELECT "${res.name}", ${res.salary}, id FROM department WHERE name = "${res.Choices}"`;
+        SELECT "${res.title}", ${res.salary}, id FROM department WHERE name = "${res.Choices}"`;
+        db.query(query, (err, res) => {
+          if (err) throw err;
+          mainQuestions();
+        });
+      });
+  });
+}
+
+function addEmployee() {
+  let query = "SELECT titel FROM role";
+  db.query(query, (err, res) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "firstName",
+          message: "Please enter the FIRST name of the new employee:",
+        },
+        {
+          type: "input",
+          name: "lastName",
+          message: "Please enter the LAST name of the new employee:",
+        },
+        {
+          type: "list",
+          name: "title",
+          message: "Please choose one title:",
+          choices: res,
+        },
+      ])
+      .then((res) => {
+        //         INSERT INTO table2 (column1, column2, column3, ...)
+        // SELECT column1, column2, column3, ...
+        // FROM table1
+        // WHERE condition;
+        const query = `INSERT INTO employee
+        (first_name, last_name, role_id)
+        SELECT "${res.firstName}", "${res.lastName}", id FROM role WHERE title = "${res.title}"`;
         db.query(query, (err, res) => {
           if (err) throw err;
           mainQuestions();

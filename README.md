@@ -11,11 +11,15 @@ Table of content
 
 # Description
 
-This application is an ...
+This application allows - for example an HR team - to list and track different employee data and roles, their salary and their affiliation in the respective departments. Using mySQL as an open source database application and the node.js inquirer package the user can start the application via the command line to view and add data of/to the database/application. Different questions, such as "View all departments", "View all roles" and "Add a department" are giving the structure of the application. The user has even the option to update the already insert information.
 
 # Building Structure
 
-The application has been developed by following ...
+The very first thing is the set-up of the database structure of tracker_db (schema.sql) - besides downloading mysql. Three different tables - department, role and employee - are allowing to store and to connect (PRIMARY KEY and FOREIGN KEY) the tables with each other. The first data is provided by the seed.sql file. The automatic call of the mySQL account is ensured by the connection.js file.
+
+The node.js command line application by using the inquirer package is place within the index.js file. All the command line questions and selection options are stored and coded in several functions.
+
+The console.table method displays tabular data as a table in the terminal when it has been called.
 
 # Screenshots
 
@@ -24,28 +28,22 @@ The application has been developed by following ...
 # Tech/Framwork used
 
 - Node.js
-- npm packages: require, express
+- npm packages: require
+- console.table
 - JavaScript
-- html
-- bootstrap
+- mySQL
 
 # Repositery content + link
 
-- test
-  - Employee.test.js
-  - Engineer.test.js
-  - Intern.test.js
-  - Manager.test.js
+- database
+  - connection.js
+  - schema.sql
+  - seeds.sql
 - image
   - 1-Screenshot.png
-- src
-  - Employee.js
-  - Engineer.js
-  - generateHTML.js
-  - Intern.js
-  - Manager.js
+- node_modules
+  - ...
 - .gitignore
-- index.html
 - index.js
 - package-lock.json
 - package.json
