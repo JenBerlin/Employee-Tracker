@@ -49,5 +49,5 @@ The console.table method displays tabular data as a table in the terminal when i
 - package.json
 - README.md
 
-- GitHub (dev branch): https://github.com/JenBerlin/Employee-Tracker/tree/dev
+- GitHub (dev branch): https://github.com/JenBerlin/Employee-Tracker/pull/1
 - Walkthrough-Video: https://drive.google.com/file/d/14cqFpcQAvYcv-W4kQOxrLgCLGUOHPzO4/view?usp=sharing
